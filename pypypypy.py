@@ -6,12 +6,14 @@ import codecs
 ser = serial.Serial('COM12', 9600)
 
 humi_temp = []
+ver = []
 
 #온도와 습도 읽어오는 함수
 def read_current_Temperature():
-    val = ser.readline()
-    humi_temp = val.decode()
-    return humi_temp[0:5], humi_temp[0:4]
+    if ser.readable():
+        humi_temp = ser.readable.decode()
+        val = humi_temp.readlines()#리스트로 결과값을 반환한 것을 val에 저장
+        return val[0]
 
 def update():
     aktTemp.config(text=str(read_current_Temperature()))
